@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+    <head>
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Title -->
+        <title>MeowMeow</title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'main.css' %}"/>
+    </head>
+
+    <body>
+        <!-- Nav -->
+        <nav>
+            <div class="nav-extended">
+                <a href="/" class="brand-logo" style="padding-left: 10px;">MeowMeow</a>
+                <a href="/" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'meowing' %}">Meowing</a></li>
+                        <li><a href="{% url 'meowerprofile' request.user.username%}">Profile</a></li>
+                        <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+                        <li><a href="{% url 'logout' %}" class="waves-effect waves-light red btn">LogOut</a></li>
+                    {% else %}
+                        <li><a href="{% url 'signup' %}" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>SignUp</a></li>
+                        <li><a href="{% url 'login' %}" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>LogIn</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+          <ul class="sidenav" id="mobile-demo">
+            <li><a href="{% url 'signup' %}">SignUp</a></li>
+          </ul>
+        <!-- End Nav -->
+
+        <!-- Content -->
+        <section class="section">
+            {% block content %}
+            {% endblock %}
+        </section>
+        <!-- End Content -->
+        <!-- Scripts -->
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        {% block script %}
+        {% endblock %}
+        <!-- End Scripts -->
+    </body>
+</html>

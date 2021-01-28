@@ -1,0 +1,27 @@
+body {
+    background: #f9f9f9;
+}
+
+.wrapper-meow {
+    margin-top: 30px;
+}
+
+.wrapper-meow .meow {
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.wrapper-meow .meow .name {
+    font-weight: bold;
+}
+
+.wrapper-meow .meow .info {
+    font-size: 12px;
+    color: #aaa;
+}
+
+#btn:active {
+  outline: none;
+}

@@ -1,0 +1,54 @@
+{% extends 'Base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+    <div class="container">
+        <div class="columns">
+            <div class="column is-12">
+                <h1 class="title">{{ user.username }}</h1>
+                {% if user.meowprofile.avatar %}
+                    <img class="imag_profile" src="{{ user.meowprofile.avatar.url }}" style="height: 128px; width: 128px;">
+                {% endif %}
+                <p><a href="{% url 'followers' user.username %}">Followers: {{ user.meowprofile.followed_by.count }}</a></p>
+                <p><a href="{% url 'follows' user.username %}">Follows: {{ user.meowprofile.follows.count }}</a></p>
+                {% if user != request.user %}
+                    {% if request.user.meowprofile in user.meowprofile.followed_by.all %}
+                        <a href="{% url 'unfollow_meower' user.username %}" class="waves-effect waves-light red btn">Unfollow</a>
+                    {% else %}
+                        <a href="{% url 'follow_meower' user.username %}" class="waves-effect waves-light btn">Follow</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-8">
+                <div class="wrapper-meow">
+                    {% for meow in user.meows.all %}
+                        <div class="meow">
+                            <article class="row valign-wrapper">
+                                <figure class="col s2">
+                                    <p>
+                                        {% if user.meowprofile.avatar %}
+                                            <img width="128px" height="128px" alt="" class="circle" src="{{ user.meowprofile.avatar.url }}">
+                                        {% endif %}
+                                    </p>
+                                </figure>
+                                <div class="col s10">
+                                    <div class="content">
+                                        <p>
+                                            <strong>{{ meow.created_by.username }}</strong>
+                                            <small>{{ meow.created_at|naturaltime }}</small>
+                                            <br>
+                                            {{ meow.body }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
